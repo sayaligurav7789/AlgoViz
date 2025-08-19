@@ -147,7 +147,7 @@ export default function QuickSortVisualizer() {
                       ? "bg-yellow-500"
                       : highlight.right === idx
                       ? "bg-blue-500"
-                      : "bg-green-600"
+                      : "bg-blue-300"
                   }`}
                   style={{ height: `${value * 3}px` }}
                 ></div>

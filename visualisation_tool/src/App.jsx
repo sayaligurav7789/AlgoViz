@@ -18,6 +18,7 @@ import MergeSortVisualizer from './components/visualizers/MergeSortVisualizer';
 import InsertionSortVisualizer from './components/visualizers/InsertionSortVisualizer';
 import CountSortVisualizer from "./components/visualizers/CountSortVisualizer";
 import RadixSortVisualizer from "./components/visualizers/RadixSortVisualizer";
+import HeapSortVisualizer from "./components/visualizers/HeapSortVisualizer";
 
 
 function App() {
@@ -54,6 +55,7 @@ function App() {
         <Route path="/sorting/insertion" element={<InsertionSortVisualizer />} /> 
         <Route path="/sorting/count" element={<CountSortVisualizer/>} />
         <Route path="/sorting/radix" element={<RadixSortVisualizer/>} />
+        <Route path="/sorting/heap" element={<HeapSortVisualizer/>} />
 
       </Routes>
     </Router>
