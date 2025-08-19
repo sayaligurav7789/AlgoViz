@@ -18,7 +18,7 @@ export default function CountSortVisualizer() {
 
   const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
-  // 🔸 Create random array (values 0..9)
+  //  Create random array (values 0..9)
   const createArray = () => {
     if (isSorting) return;
     const arr = Array.from({ length: 10 }, () => Math.floor(Math.random() * 10));
@@ -31,14 +31,14 @@ export default function CountSortVisualizer() {
     setMessage("New array created! Click Sort to begin.");
   };
 
-  // 🔸 Line style (same as Selection Sort)
+  //  Line style (same as Selection Sort)
   const lineStyle = (lineNumber) => ({
     backgroundColor: highlightLine === lineNumber ? "black" : "#FEA405",
     color: "white",
     padding: "2px 4px",
   });
 
-  // 🔸 Counting Sort animation
+  //  Counting Sort animation
   const startSort = async () => {
     if (isSorting || array.length === 0) return;
     setIsSorting(true);

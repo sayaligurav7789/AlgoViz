@@ -76,12 +76,12 @@ export default function InsertionSortVisualizer() {
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col pt-10">
-      {/* 🔹 Heading */}
+      {/*  Heading */}
       <h1 className="text-4xl font-extrabold text-teal-700 mb-6 tracking-wide pt-8 text-center">
         Insertion Sort
       </h1>
 
-      {/* 🔹 Responsive Main Layout */}
+      {/*  Responsive Main Layout */}
       <div className="flex flex-col md:flex-row flex-1">
         {/* Left: Buttons */}
         <div className="w-full md:w-1/6 flex flex-col justify-end items-start p-4 space-y-4">

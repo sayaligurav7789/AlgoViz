@@ -8,7 +8,7 @@ export default function QuickSortVisualizer() {
   const [highlightLine, setHighlightLine] = useState(null);
   const steps = useRef([]);
 
-  // 🔹 Create Random Array
+  // Create Random Array
   const createArray = () => {
     const arr = Array.from({ length: 8 }, () => Math.floor(Math.random() * 100) + 10);
     setArray(arr);
@@ -18,7 +18,7 @@ export default function QuickSortVisualizer() {
     setHighlightLine(null);
   };
 
-  // 🔹 QuickSort Recursive Function (stores steps for animation)
+  // QuickSort Recursive Function (stores steps for animation)
   const quickSortSteps = (arr, low, high) => {
     if (low < high) {
       setHighlightLine(2);
@@ -73,7 +73,7 @@ export default function QuickSortVisualizer() {
     return i + 1;
   };
 
-  // 🔹 Animate Steps
+  // Animate Steps
   const startSort = () => {
     if (sorting) return;
     setSorting(true);
@@ -99,7 +99,7 @@ export default function QuickSortVisualizer() {
     }, 1000);
   };
 
-  // 🔹 Line Style for Pseudocode Highlight
+  //  Line Style for Pseudocode Highlight
   const lineStyle = (lineNumber) => ({
     backgroundColor: highlightLine === lineNumber ? "black" : "#FEA405",
     color: "white",
@@ -108,12 +108,12 @@ export default function QuickSortVisualizer() {
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col pt-10">
-      {/* 🔹 Heading */}
+      {/*  Heading */}
       <h1 className="text-4xl font-extrabold text-teal-700 mb-6 tracking-wide pt-8 text-center">
         Quick Sort
       </h1>
 
-      {/* 🔹 Responsive Main Layout */}
+      {/*  Responsive Main Layout */}
       <div className="flex flex-col md:flex-row flex-1">
         {/* Left: Buttons pinned at bottom */}
         <div className="w-full md:w-1/6 flex flex-col justify-end items-start p-4 space-y-4">

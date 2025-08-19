@@ -18,7 +18,7 @@ export default function RadixSortVisualizer() {
 
   const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
-  // 🔸 Create random array
+  // Create random array
   const createArray = () => {
     if (isSorting) return;
     const arr = Array.from({ length: 8 }, () => Math.floor(Math.random() * 1000));
@@ -37,7 +37,7 @@ export default function RadixSortVisualizer() {
     padding: "2px 4px",
   });
 
-  // 🔸 Counting sort for a specific digit
+  // Counting sort for a specific digit
   const countingSortDigit = async (arr, exp) => {
     const n = arr.length;
     const output = new Array(n).fill(0);
@@ -78,7 +78,7 @@ export default function RadixSortVisualizer() {
     return output;
   };
 
-  // 🔸 Radix Sort animation
+  // Radix Sort animation
   const startSort = async () => {
     if (isSorting || array.length === 0) return;
     setIsSorting(true);
