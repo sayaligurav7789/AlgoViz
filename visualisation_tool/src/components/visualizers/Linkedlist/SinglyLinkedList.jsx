@@ -315,7 +315,7 @@ export default function SinglyLinkedList() {
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col pt-24">
       <h1 className="text-4xl font-extrabold text-teal-700 mb-6 text-center">
-        Singly Linked List Visualization
+        Singly Linked List
       </h1>
 
       <div className="flex flex-col md:flex-row items-start justify-center gap-4 px-4">
