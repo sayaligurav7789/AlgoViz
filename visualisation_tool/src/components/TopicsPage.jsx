@@ -12,7 +12,7 @@ const topics = [
   {
     title: "Search Algorithms",
     description: "Explore graph traversal algorithms such as BFS, DFS, Dijkstra’s, A*, and others.",
-    link: "/topics/graphs",
+    link: "/topics/searching",
     lottieSrc: "https://lottie.host/9f175512-2305-4ea7-918f-35f8add2900a/rnrIE0Sz09.lottie"
   },
   {
