@@ -12,7 +12,7 @@ import SortingAlgorithmsPage from "./components/visualizers/Sorting/SortingAlgor
 import SearchingAlgorithmPage from "./components/visualizers/Searching/SearchingAlgorithmPage"; 
 import LinkedListAlgorithmPage from "./components/visualizers/Linkedlist/LinkedListAlgorithmPage";
 
-// Import your visualizer components for sorting Techniques 
+// Import your visualizer components for different Techniques 
 import BubbleSortVisualizer from './components/visualizers/Sorting/BubbleSortVisualizer';
 import SelectionSortVisualizer from './components/visualizers/Sorting/SelectionSortVisualizer';
 import QuickSortVisualizer from './components/visualizers/Sorting/QuickSort';
