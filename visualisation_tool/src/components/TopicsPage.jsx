@@ -22,6 +22,18 @@ const topics = [
     imageSrc: "https://visualgo.net/img/gif/list.gif",
   },
   {
+    title: "Stack",
+    description: "",
+    link: "/topics/stack",
+    imageSrc: ""
+  },
+  {
+    title: "Queue",
+    description: "",
+    link: "/topics/queue",
+    imageSrc: ""
+  },
+  {
     title: "Binary Trees",
     description: "Learn about binary trees, binary search trees, traversal methods, and more.",
     link: "/topics/binary-trees",
