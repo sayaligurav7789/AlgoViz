@@ -23,15 +23,15 @@ const topics = [
   },
   {
     title: "Stack",
-    description: "",
+    description: "Learn how stacks work using LIFO (Last-In-First-Out) operations such as push and pop, with animated visualizations.",
     link: "/topics/stack",
-    imageSrc: ""
+    lottieSrc: "https://lottie.host/c8682166-9128-4f4b-992e-16554a9cbede/Jj8Ox7lL3v.lottie"
   },
   {
     title: "Queue",
-    description: "",
+    description: "Understand queue operations and FIFO (First-In-First-Out) flow with visualizations of enqueue, dequeue, and circular queue behavior.",
     link: "/topics/queue",
-    imageSrc: ""
+    lottieSrc: "https://lottie.host/57792508-8a02-45da-bf4c-6661a1524605/JHOL4yrlTF.lottie"
   },
   {
     title: "Binary Trees",
