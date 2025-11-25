@@ -1,36 +1,25 @@
 import React, { useState, useRef, useEffect } from "react";
 
-/**
- * StackVisualizer.jsx
- * - Vertical stack visualization (top at top)
- * - Push / Pop operations
- * - Pseudocode with animated line highlighting
- * - Delay: 700ms per step, final hold 1000ms
- */
-
 export default function StackVisualizer() {
-  const [stack, setStack] = useState([10, 20, 30]); // bottom -> top (last is top)
+  const [stack, setStack] = useState([10, 20, 30]); 
   const [value, setValue] = useState("");
+  const [capacity, setCapacity] = useState(""); // NEW
   const [message, setMessage] = useState("Select an operation to begin.");
   const [isBusy, setIsBusy] = useState(false);
 
-  const [mode, setMode] = useState("none"); // "push" | "pop" | "none"
+  const [mode, setMode] = useState("none"); 
   const [highlightLine, setHighlightLine] = useState(null);
-  const [topIndex, setTopIndex] = useState(stack.length - 1);
 
   const cancelRef = useRef(false);
 
   useEffect(() => {
-    setTopIndex(stack.length - 1);
     return () => {
       cancelRef.current = true;
     };
-  }, [stack]);
+  }, []);
 
   const delay = (ms) =>
-    new Promise((resolve) => {
-      const t = setTimeout(() => resolve(), ms);
-    });
+    new Promise((resolve) => setTimeout(resolve, ms));
 
   const resetState = (msg = "") => {
     cancelRef.current = true;
@@ -40,90 +29,88 @@ export default function StackVisualizer() {
       setMode("none");
       setIsBusy(false);
       setMessage(msg);
-      setTopIndex(stack.length - 1);
     }, 0);
   };
 
-  // PUSH animation
+  // ---------------- PUSH ----------------
   const handlePush = async () => {
     if (isBusy) return;
+
+    if (capacity === "") {
+      setMessage("Enter stack capacity first.");
+      return;
+    }
+
     if (value === "") {
       setMessage("Enter a value to push.");
+      return;
+    }
+
+    if (stack.length >= Number(capacity)) {
+      setMode("push");
+      setHighlightLine(1);
+      setMessage("Overflow! Stack is full.");
       return;
     }
 
     cancelRef.current = false;
     setMode("push");
     setIsBusy(true);
-    setMessage("Pushing value...");
+    setMessage("Pushing...");
 
-    // pseudocode mapping:
-    // 1: if stack is full: error (we don't enforce capacity)
-    // 2: top = top + 1
-    // 3: stack[top] = value
-    // 4: return
+    // line 1
     setHighlightLine(1);
     await delay(700);
-    if (cancelRef.current) return;
 
+    // line 2
     setHighlightLine(2);
     await delay(700);
-    if (cancelRef.current) return;
 
+    // line 3: perform push
     setHighlightLine(3);
-    // perform push (value goes to top -> end of array)
-    setStack((prev) => {
-      const copy = [...prev, Number(value)];
-      return copy;
-    });
+    setStack((prev) => [...prev, Number(value)]);
+    await delay(800);
 
-    // show final state
-    await delay(1000);
     resetState(`Pushed ${value} onto stack.`);
     setValue("");
   };
 
-  // POP animation
+  // ---------------- POP ----------------
   const handlePop = async () => {
     if (isBusy) return;
+
     if (stack.length === 0) {
-      setMessage("Stack is empty.");
+      setMode("pop");
+      setHighlightLine(1);
+      setMessage("Underflow! Stack is empty.");
       return;
     }
 
     cancelRef.current = false;
     setMode("pop");
     setIsBusy(true);
-    setMessage("Popping top...");
+    setMessage("Popping...");
 
-    // pseudocode mapping:
-    // 1: if top < 0: underflow
-    // 2: val = stack[top]
-    // 3: top = top - 1
-    // 4: return val
-
+    // line 1
     setHighlightLine(1);
     await delay(700);
-    if (cancelRef.current) return;
 
+    // line 2
     setHighlightLine(2);
-    // show which value will be popped (top)
-    setTopIndex(stack.length - 1);
     await delay(700);
-    if (cancelRef.current) return;
 
+    // line 3
     setHighlightLine(3);
-    // perform pop
-    setStack((prev) => {
-      const copy = [...prev];
-      const popped = copy.pop();
-      return copy;
-    });
+    await delay(700);
 
-    await delay(1000);
-    resetState(`Popped top of stack.`);
+    // perform pop
+    setStack((prev) => prev.slice(0, -1));
+
+    await delay(800);
+    resetState("Popped top of stack.");
   };
 
+  // ---------------- PSEUDOCODE ----------------
   const renderPseudocode = () => {
     const style = (line) => ({
       backgroundColor: highlightLine === line ? "black" : "#FEA405",
@@ -138,7 +125,7 @@ export default function StackVisualizer() {
     if (mode === "push") {
       return (
         <>
-          <div style={style(1)}>if stack is full: error</div>
+          <div style={style(1)}>if stack is full: overflow</div>
           <div style={style(2)}>top = top + 1</div>
           <div style={style(3)}>stack[top] = value</div>
           <div style={style(4)}>return</div>
@@ -157,18 +144,29 @@ export default function StackVisualizer() {
       );
     }
 
-    return <div style={{ color: "white" }}>Select push or pop to view pseudocode.</div>;
+    return <div style={{ color: "white" }}>Select an operation.</div>;
   };
 
+  // ---------------- UI ----------------
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col pt-24 px-4">
-      <h1 className="text-3xl md:text-4xl font-extrabold text-teal-700 mb-6 text-center">
+      <h1 className="text-4xl font-extrabold text-teal-700 mb-6 text-center">
         Stack Visualizer
       </h1>
 
       <div className="flex flex-col md:flex-row gap-6 justify-center items-start">
-        {/* Left controls */}
-        <div className="w-full md:w-1/5 space-y-3">
+
+        {/* LEFT PANEL */}
+        <div className="w-full md:w-1/5 space-y-3 mt-20">
+
+          <input
+            value={capacity}
+            onChange={(e) => setCapacity(e.target.value)}
+            type="number"
+            placeholder="Capacity"
+            className="w-full border rounded px-3 py-2"
+          />
+
           <input
             value={value}
             onChange={(e) => setValue(e.target.value)}
@@ -176,16 +174,12 @@ export default function StackVisualizer() {
             placeholder="Value to push"
             className="w-full border rounded px-3 py-2"
           />
-          <button
-            onClick={handlePush}
-            className="w-full bg-blue-600 text-white py-2 rounded"
-          >
+
+          <button onClick={handlePush} className="w-full bg-blue-600 text-white py-2 rounded">
             Push
           </button>
-          <button
-            onClick={handlePop}
-            className="w-full bg-red-600 text-white py-2 rounded"
-          >
+
+          <button onClick={handlePop} className="w-full bg-red-600 text-white py-2 rounded">
             Pop
           </button>
 
@@ -200,45 +194,41 @@ export default function StackVisualizer() {
           </button>
         </div>
 
-        {/* Visualization */}
-        <div className="w-full md:w-2/5 flex items-center justify-center">
-          <div className="flex flex-col-reverse items-center">
-            {stack.length === 0 && (
-              <div className="text-gray-500 italic">Stack is empty</div>
-            )}
-            {stack.map((val, idx) => {
-              const fromBottomIdx = idx; // 0 is bottom
-              const topIdx = stack.length - 1;
-              const isTop = idx === topIdx;
-              return (
-                <div
-                  key={idx}
-                  className="w-36 mb-3 flex flex-col items-center"
-                >
-                  <div
-                    className={`w-full border-2 rounded px-3 py-4 flex items-center justify-center font-bold text-lg ${
-                      isTop ? "bg-yellow-300 border-yellow-600" : "bg-white border-gray-300"
-                    }`}
-                  >
-                    {val}
+        {/* VISUALIZATION */}
+          <div className="w-full md:w-2/5 flex items-center justify-center mt-20">
+            <div className="flex flex-col-reverse items-center">
+              {stack.length === 0 && <div className="text-gray-500">Stack empty</div>}
+              {stack.map((val, idx) => {
+                const isTop = idx === stack.length - 1;
+                return (
+                  <div key={idx} className="w-36 mb-3 flex flex-col items-center">
+                    <div
+                      className={`w-full border-2 rounded px-3 py-4 flex items-center justify-center font-bold text-lg ${
+                        isTop ? "bg-yellow-300 border-yellow-600" : "bg-white border-gray-300"
+                      }`}
+                    >
+                      {val}
+                    </div>
+                    <div className="text-xs">
+                      {isTop && <span className="text-blue-600">top</span>}
+                    </div>
                   </div>
-                  <div className="text-xs mt-1">
-                    {isTop && <span className="text-blue-600">top</span>}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+                );
+              })}
+            </div>
         </div>
 
-        {/* Pseudocode */}
-        <div className="w-full md:w-1/5 p-3">
+        {/* RIGHT PANEL */}
+        <div className="w-full md:w-1/5 p-3 mt-20">
           <h2 className="font-bold mb-2">Pseudocode</h2>
-          <div className="bg-amber-500 text-white p-2 mb-3 rounded">{message}</div>
+          <div className="bg-amber-500 text-white p-2 mb-3 rounded">
+            {message}
+          </div>
           <div className="p-3 rounded" style={{ background: "#FEA405" }}>
             {renderPseudocode()}
           </div>
         </div>
+
       </div>
     </div>
   );
