@@ -28,6 +28,7 @@ import DoublyLinkedList from "./components/visualizers/Linkedlist/DoublyLinkedLi
 import CircularLinkedList from "./components/visualizers/Linkedlist/CircularLinkedList";
 import DoublyCircularLinkedList from "./components/visualizers/Linkedlist/DoublyCircularLinkedList";
 import StackVisualizer from "./components/visualizers/Stack/StackVisualizer";
+import QueueVisualizer from "./components/visualizers/Queue/QueueVisualizer";
 
 
 function App() {
@@ -78,8 +79,12 @@ function App() {
         <Route path="/linkedlist/doubly" element={<DoublyLinkedList />} />
         <Route path="/linkedlist/circular" element={<CircularLinkedList />} />
         <Route path="/linkedlist/doubly-circular" element={<DoublyCircularLinkedList />} />
-
+        
+        {/*Stack Visualizers */}
         <Route path="/topics/stack" element={<StackVisualizer />} />
+
+        {/*Queue Visualizers */}
+        <Route path="/topics/queue" element={<QueueVisualizer />} />
 
       </Routes>
     </Router>
