@@ -34,13 +34,13 @@ const topics = [
     lottieSrc: "https://lottie.host/57792508-8a02-45da-bf4c-6661a1524605/JHOL4yrlTF.lottie"
   },
   {
-    title: "Binary Trees",
-    description: "Learn about binary trees, binary search trees, traversal methods, and more.",
+    title: "Tree",
+    description: "Learn about binary trees, binary search trees, traversal methods, and more, with animated visualizations",
     link: "/topics/binary-trees",
     imageSrc: "https://visualgo.net/img/gif/bst.gif"
   },
   {
-    title: "Graph Traversals",
+    title: "Graph",
     description: "Dive deep into graph traversal techniques such as Depth-First Search (DFS) and Breadth-First Search (BFS).",
     link: "/topics/graph-traversals",
     imageSrc: "https://visualgo.net/img/gif/dfsbfs.gif"
