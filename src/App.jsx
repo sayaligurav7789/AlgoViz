@@ -29,6 +29,7 @@ import CircularLinkedList from "./components/visualizers/Linkedlist/CircularLink
 import DoublyCircularLinkedList from "./components/visualizers/Linkedlist/DoublyCircularLinkedList";
 import StackVisualizer from "./components/visualizers/Stack/StackVisualizer";
 import QueueVisualizer from "./components/visualizers/Queue/QueueVisualizer";
+import GraphVisualizer from "./components/visualizers/Graph/GraphVisualizer";
 
 
 function App() {
@@ -85,6 +86,9 @@ function App() {
 
         {/*Queue Visualizers */}
         <Route path="/topics/queue" element={<QueueVisualizer />} />
+
+        {/*Graph Visualizers */}
+        <Route path="/topics/graph-traversals" element={<GraphVisualizer />} />
 
       </Routes>
     </Router>
