@@ -31,7 +31,6 @@ import StackVisualizer from "./components/visualizers/Stack/StackVisualizer";
 import QueueVisualizer from "./components/visualizers/Queue/QueueVisualizer";
 import GraphVisualizer from "./components/visualizers/Graph/GraphVisualizer";
 
-
 function App() {
   return (
     <Router>
@@ -88,7 +87,7 @@ function App() {
         <Route path="/topics/queue" element={<QueueVisualizer />} />
 
         {/*Graph Visualizers */}
-        <Route path="/topics/graph-traversals" element={<GraphVisualizer />} />
+        <Route path="/topics/graph" element={<GraphVisualizer />} />
 
       </Routes>
     </Router>
