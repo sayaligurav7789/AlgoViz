@@ -36,13 +36,13 @@ const topics = [
   {
     title: "Tree",
     description: "Learn about binary trees, binary search trees, traversal methods, and more, with animated visualizations",
-    link: "/topics/binary-trees",
+    link: "/topics/tree",
     imageSrc: "https://visualgo.net/img/gif/bst.gif"
   },
   {
     title: "Graph",
     description: "Dive deep into graph traversal techniques such as Depth-First Search (DFS) and Breadth-First Search (BFS).",
-    link: "/topics/graph-traversals",
+    link: "/topics/graph",
     imageSrc: "https://visualgo.net/img/gif/dfsbfs.gif"
   },
   {
