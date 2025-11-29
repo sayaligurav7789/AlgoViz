@@ -30,6 +30,8 @@ import DoublyCircularLinkedList from "./components/visualizers/Linkedlist/Doubly
 import StackVisualizer from "./components/visualizers/Stack/StackVisualizer";
 import QueueVisualizer from "./components/visualizers/Queue/QueueVisualizer";
 import GraphVisualizer from "./components/visualizers/Graph/GraphVisualizer";
+import TreeVisualizer from "./components/visualizers/Tree/TreeVisualizer";
+
 
 function App() {
   return (
@@ -88,6 +90,9 @@ function App() {
 
         {/*Graph Visualizers */}
         <Route path="/topics/graph" element={<GraphVisualizer />} />
+
+        {/*Tree Visualizers */}
+        <Route path="/topics/tree" element={<TreeVisualizer />} />
 
       </Routes>
     </Router>
