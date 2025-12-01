@@ -1,5 +1,6 @@
 import React from "react";
 import TopicCard from "../components/TopicCard";
+import string from "../assets/images/string.png";
 
 export default function TopicsPage() {
 const topics = [
@@ -35,7 +36,7 @@ const topics = [
   },
   {
     title: "Tree",
-    description: "Learn about binary trees, binary search trees, traversal methods, and more, with animated visualizations",
+    description: "Learn about binary trees, binary search trees, traversal methods, and more, with animated visualizations for preorder, inorder, and postorder traversal.",
     link: "/topics/tree",
     imageSrc: "https://visualgo.net/img/gif/bst.gif"
   },
@@ -46,10 +47,16 @@ const topics = [
     imageSrc: "https://visualgo.net/img/gif/dfsbfs.gif"
   },
   {
-    title: "Hash Tables",
-    description: "Explore hash tables, hashing functions, collision resolution, and their applications.",
-    link: "/topics/hash-tables",
-    imageSrc: "https://visualgo.net/img/gif/hashtable.gif"
+    title: "Array",
+    description: "Explore Arrays with searching, sorting, insertion and deletion operations.",
+    link: "/topics/arrays",
+    imageSrc: "https://visualgo.net/img/gif/array.gif"
+  },
+  {
+    title: "String",
+    description: "Explore Arrays with searching, sorting, insertion and deletion operations.",
+    link: "/topics/string",
+    imageSrc: string
   },
     // Add more topics as you want...
   ];
