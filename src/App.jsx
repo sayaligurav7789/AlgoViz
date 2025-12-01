@@ -31,7 +31,8 @@ import StackVisualizer from "./components/visualizers/Stack/StackVisualizer";
 import QueueVisualizer from "./components/visualizers/Queue/QueueVisualizer";
 import GraphVisualizer from "./components/visualizers/Graph/GraphVisualizer";
 import TreeVisualizer from "./components/visualizers/Tree/TreeVisualizer";
-
+import Arrays from "./components/visualizers/Array/Arrays";
+import StringVisualizer from "./components/visualizers/String/StringVisualizer";
 
 function App() {
   return (
@@ -93,6 +94,12 @@ function App() {
 
         {/*Tree Visualizers */}
         <Route path="/topics/tree" element={<TreeVisualizer />} />
+
+        {/*Array Visualizers */}
+        <Route path="/topics/arrays" element={<Arrays />} />
+
+        {/*String Visualizers */}
+        <Route path="/topics/string" element={<StringVisualizer />} />
 
       </Routes>
     </Router>
