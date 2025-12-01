@@ -51,10 +51,6 @@ export default function ArrayVisualizer() {
 
     let target = Number(value);
 
-    // Pseudocode:
-    // 1: for i = 0 to n-1:
-    // 2:    if A[i] == value: found
-
     for (let i = 0; i < arr.length; i++) {
       if (cancelRef.current) return;
 
@@ -92,12 +88,6 @@ export default function ArrayVisualizer() {
     setMode("insert");
     setMessage("Inserting...");
 
-    // Pseudocode:
-    // 1: for i = n-1 down to index:
-    // 2:    A[i+1] = A[i]
-    // 3: A[index] = value
-
-    // Shift right simulation
     setHighlight(1);
     for (let i = arr.length - 1; i >= idx; i--) {
       if (cancelRef.current) return;
@@ -109,7 +99,6 @@ export default function ArrayVisualizer() {
       await delay(700);
     }
 
-    // Insert
     setHighlight(3);
     const newArr = [...arr];
     newArr.splice(idx, 0, val);
@@ -137,11 +126,6 @@ export default function ArrayVisualizer() {
     setMode("delete");
     setMessage("Deleting...");
 
-    // Pseudocode:
-    // 1: for i = index to n-2:
-    // 2:    A[i] = A[i+1]
-    // 3: delete last
-
     setHighlight(1);
     for (let i = idx; i < arr.length - 1; i++) {
       if (cancelRef.current) return;
@@ -153,7 +137,6 @@ export default function ArrayVisualizer() {
       await delay(700);
     }
 
-    // Remove element
     setHighlight(3);
     const newArr = [...arr];
     newArr.splice(idx, 1);
@@ -172,14 +155,14 @@ export default function ArrayVisualizer() {
       borderRadius: 6,
       marginBottom: 6,
       fontFamily: "monospace",
-      fontSize: 13
+      fontSize: 13,
     });
 
     if (mode === "search")
       return (
         <>
           <div style={s(1)}>for i = 0 to n-1:</div>
-          <div style={s(2)}>&nbsp;&nbsp;if A[i] == value: found</div>
+          <div style={s(2)}>&nbsp;&nbsp;if A[i] == value → found</div>
         </>
       );
 
@@ -254,14 +237,6 @@ export default function ArrayVisualizer() {
           >
             Reset
           </button>
-
-          <div className="mt-4 bg-amber-500 text-white p-2 rounded">
-            {message}
-          </div>
-
-          <div className="mt-2 text-sm">
-            <strong>Current Index:</strong> {currentIdx ?? "-"}
-          </div>
         </div>
 
         {/* CENTER — ARRAY VISUAL */}
@@ -286,8 +261,20 @@ export default function ArrayVisualizer() {
           </div>
         </div>
 
-        {/* RIGHT PANEL — PSEUDOCODE */}
+        {/* RIGHT PANEL — Updated like Tree/Graph */}
         <div className="w-full md:w-1/5 p-3">
+
+          {/* MESSAGE BOX */}
+          <div className="bg-amber-500 text-white p-2 rounded mb-3">
+            {message}
+          </div>
+
+          {/* STATUS */}
+          <div className="text-sm mb-4">
+            <strong>Current Index:</strong> {currentIdx ?? "-"}
+          </div>
+
+          {/* PSEUDOCODE */}
           <h3 className="font-bold mb-2">Pseudocode</h3>
           <div className="p-3 rounded" style={{ background: "#FEA405" }}>
             {renderCode()}
