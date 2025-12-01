@@ -10,7 +10,6 @@ const ADJ = {
   6: [3, 5],
 };
 
-// node layout
 const NODE_POS = {
   0: { left: "50%", top: "8%" },
   1: { left: "22%", top: "28%" },
@@ -33,9 +32,7 @@ export default function GeneralGraphVisualizer() {
   const cancelRef = useRef(false);
 
   useEffect(() => {
-    return () => {
-      cancelRef.current = true;
-    };
+    return () => (cancelRef.current = true);
   }, []);
 
   const delay = (ms) => new Promise((r) => setTimeout(r, ms));
@@ -84,8 +81,7 @@ export default function GeneralGraphVisualizer() {
 
       if (stopOnFind && String(node) === target) {
         setMessage(`Found node ${node} via BFS!`);
-        setHighlightLine(3);
-        return; //stop but DO NOT auto-reset
+        return;
       }
 
       await delay(700);
@@ -104,7 +100,6 @@ export default function GeneralGraphVisualizer() {
 
     setHighlightLine(6);
     setMessage("BFS Completed.");
-    // removed auto-reset
   };
 
   // ---------------- DFS ----------------
@@ -142,8 +137,8 @@ export default function GeneralGraphVisualizer() {
       setHighlightLine(3);
 
       if (stopOnFind && String(node) === target) {
-        setMessage(`Found node ${node} via DFS!`);
-        return; //stop but DO NOT auto-reset
+        setMessage(`Found ${node} via DFS!`);
+        return;
       }
 
       await delay(700);
@@ -162,7 +157,6 @@ export default function GeneralGraphVisualizer() {
 
     setHighlightLine(6);
     setMessage("DFS Completed.");
-    // removed auto-reset
   };
 
   const handleSearchBFS = () => {
@@ -199,7 +193,7 @@ export default function GeneralGraphVisualizer() {
           <div style={s(2)}>while queue not empty:</div>
           <div style={s(3)}>&nbsp;&nbsp;node = dequeue()</div>
           <div style={s(4)}>&nbsp;&nbsp;visit(node)</div>
-          <div style={s(5)}>&nbsp;&nbsp;for neighbor in adj[node]: enqueue(n)</div>
+          <div style={s(5)}>&nbsp;&nbsp;for each neighbor: enqueue()</div>
           <div style={s(6)}>done</div>
         </>
       );
@@ -210,7 +204,7 @@ export default function GeneralGraphVisualizer() {
           <div style={s(1)}>push(start)</div>
           <div style={s(2)}>while stack not empty:</div>
           <div style={s(3)}>&nbsp;&nbsp;node = pop()</div>
-          <div style={s(4)}>&nbsp;&nbsp;if not seen: visit(node)</div>
+          <div style={s(4)}>&nbsp;&nbsp;if not seen: visit()</div>
           <div style={s(5)}>&nbsp;&nbsp;push neighbors reversed</div>
           <div style={s(6)}>done</div>
           <div style={s(7)}>if seen: continue</div>
@@ -229,8 +223,10 @@ export default function GeneralGraphVisualizer() {
         const key = from < to ? `${from}-${to}` : `${to}-${from}`;
         if (drawn.has(key)) return;
         drawn.add(key);
+
         const p1 = NODE_POS[from];
         const p2 = NODE_POS[to];
+
         lines.push(
           <line
             key={key}
@@ -244,6 +240,7 @@ export default function GeneralGraphVisualizer() {
         );
       });
     });
+
     return lines;
   };
 
@@ -254,7 +251,8 @@ export default function GeneralGraphVisualizer() {
       </h1>
 
       <div className="flex flex-col md:flex-row gap-6 justify-center items-start pt-15">
-        {/* LEFT controls */}
+
+        {/* LEFT PANEL */}
         <div className="w-full md:w-1/5 p-3 space-y-3">
           <button onClick={() => resetAll("Ready.")} className="w-full bg-orange-500 text-white py-2 rounded">
             Reset
@@ -285,17 +283,9 @@ export default function GeneralGraphVisualizer() {
           <button onClick={handleSearchDFS} className="w-full bg-indigo-500 text-white py-2 rounded">
             Search DFS
           </button>
-
-          <div className="mt-4 bg-amber-500 text-white p-2 rounded">{message}</div>
-
-          <div className="mt-2 text-sm">
-            <div><strong>Visited:</strong> {visited.join(", ") || "-"}</div>
-            <div><strong>Current:</strong> {current ?? "-"}</div>
-            <div><strong>Aux:</strong> [{auxStructure.join(", ")}]</div>
-          </div>
         </div>
 
-        {/* GRAPH */}
+        {/* GRAPH CENTER */}
         <div className="w-full md:w-3/5 flex justify-center">
           <div className="relative w-full max-w-3xl h-96 bg-white rounded shadow p-4">
             <svg className="absolute inset-0 w-full h-full pointer-events-none">
@@ -307,6 +297,7 @@ export default function GeneralGraphVisualizer() {
               const pos = NODE_POS[id];
               const isVisited = visited.includes(id);
               const isCurrent = current === id;
+
               return (
                 <div
                   key={id}
@@ -330,8 +321,22 @@ export default function GeneralGraphVisualizer() {
           </div>
         </div>
 
-        {/* RIGHT pseudocode */}
+        {/* RIGHT PANEL UPDATED LIKE TREE VISUALIZER */}
         <div className="w-full md:w-1/5 p-3">
+
+          {/* MESSAGE BOX */}
+          <div className="bg-amber-500 text-white p-2 rounded mb-3">
+            {message}
+          </div>
+
+          {/* STATUS */}
+          <div className="text-sm mb-4">
+            <strong>Visited:</strong> {visited.join(", ") || "-"} <br />
+            <strong>Current:</strong> {current ?? "-"} <br />
+            <strong>Aux:</strong> [{auxStructure.join(", ")}]
+          </div>
+
+          {/* PSEUDOCODE */}
           <h3 className="font-bold mb-2">Pseudocode</h3>
           <div className="p-3 rounded" style={{ background: "#FEA405" }}>
             {renderPseudocode()}
