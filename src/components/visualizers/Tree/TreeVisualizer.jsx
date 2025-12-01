@@ -18,10 +18,9 @@ const TREE = {
   4: { left: null, right: null },
   5: { left: null, right: null },
   6: { left: null, right: null },
-  7: { left: null, right: null }
+  7: { left: null, right: null },
 };
 
-// Node coordinates in % (same style as graph)
 const NODE_POS = {
   1: { left: "50%", top: "10%" },
   2: { left: "25%", top: "35%" },
@@ -29,7 +28,7 @@ const NODE_POS = {
   4: { left: "15%", top: "65%" },
   5: { left: "35%", top: "65%" },
   6: { left: "65%", top: "65%" },
-  7: { left: "85%", top: "65%" }
+  7: { left: "85%", top: "65%" },
 };
 
 export default function TreeVisualizer() {
@@ -59,7 +58,7 @@ export default function TreeVisualizer() {
     }, 0);
   };
 
-  // ---------- Traversal Core ----------
+  // ---------- HELPER ----------
   const visitNode = async (node, line) => {
     if (!node) return;
     setHighlight(line);
@@ -78,13 +77,13 @@ export default function TreeVisualizer() {
     async function dfs(node) {
       if (!node || cancelRef.current) return;
 
-      await visitNode(node, 1); // visit
+      await visitNode(node, 1);
       await delay(300);
 
-      setHighlight(2); // left
+      setHighlight(2);
       await dfs(TREE[node].left);
 
-      setHighlight(3); // right
+      setHighlight(3);
       await dfs(TREE[node].right);
     }
 
@@ -103,13 +102,13 @@ export default function TreeVisualizer() {
     async function dfs(node) {
       if (!node || cancelRef.current) return;
 
-      setHighlight(1); // left
+      setHighlight(1);
       await dfs(TREE[node].left);
 
-      await visitNode(node, 2); // visit
+      await visitNode(node, 2);
       await delay(300);
 
-      setHighlight(3); // right
+      setHighlight(3);
       await dfs(TREE[node].right);
     }
 
@@ -128,13 +127,13 @@ export default function TreeVisualizer() {
     async function dfs(node) {
       if (!node || cancelRef.current) return;
 
-      setHighlight(1); // left
+      setHighlight(1);
       await dfs(TREE[node].left);
 
-      setHighlight(2); // right
+      setHighlight(2);
       await dfs(TREE[node].right);
 
-      await visitNode(node, 3); // visit
+      await visitNode(node, 3);
       await delay(300);
     }
 
@@ -143,7 +142,7 @@ export default function TreeVisualizer() {
     setMessage("Postorder Completed.");
   };
 
-  // ---------- Render Pseudocode ----------
+  // ---------- PSEUDOCODE ----------
   const renderCode = () => {
     const style = (n) => ({
       backgroundColor: highlight === n ? "black" : "#FEA405",
@@ -152,7 +151,7 @@ export default function TreeVisualizer() {
       borderRadius: 6,
       marginBottom: 6,
       fontFamily: "monospace",
-      fontSize: 13
+      fontSize: 13,
     });
 
     if (mode === "preorder")
@@ -188,7 +187,7 @@ export default function TreeVisualizer() {
     return <div style={{ color: "white" }}>Pick a traversal.</div>;
   };
 
-  // ---------- Render Tree Edges ----------
+  // ---------- DRAW EDGES ----------
   const renderEdges = () => {
     const edges = [];
 
@@ -229,7 +228,7 @@ export default function TreeVisualizer() {
     return edges;
   };
 
-  // ---------- Render ----------
+  // ---------- RENDER ----------
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col pt-20 px-6">
       <h1 className="text-4xl font-extrabold text-teal-700 mb-6 text-center">
@@ -238,7 +237,7 @@ export default function TreeVisualizer() {
 
       <div className="flex flex-col md:flex-row gap-6 justify-center items-start pt-15">
 
-        {/* LEFT controls */}
+        {/* LEFT PANEL */}
         <div className="w-full md:w-1/5 p-3 space-y-3">
           <button onClick={() => resetAll("Ready.")} className="w-full bg-orange-500 text-white py-2 rounded">
             Reset
@@ -255,13 +254,6 @@ export default function TreeVisualizer() {
           <button onClick={runPostorder} className="w-full bg-purple-600 text-white py-2 rounded">
             Postorder
           </button>
-
-          <div className="mt-4 bg-amber-500 text-white p-2 rounded">{message}</div>
-
-          <div className="mt-2 text-sm">
-            <div><strong>Visited:</strong> {visited.join(", ") || "-"}</div>
-            <div><strong>Current:</strong> {current ?? "-"}</div>
-          </div>
         </div>
 
         {/* TREE VISUAL */}
@@ -300,8 +292,20 @@ export default function TreeVisualizer() {
           </div>
         </div>
 
-        {/* RIGHT: pseudocode */}
+        {/* RIGHT PANEL (STATUS + PSEUDOCODE) */}
         <div className="w-full md:w-1/5 p-3">
+
+          {/* STATUS BOX */}
+          <div className="bg-amber-500 text-white p-2 rounded mb-3">
+            {message}
+          </div>
+
+          <div className="text-sm mb-4">
+            <strong>Visited:</strong> {visited.join(", ") || "-"} <br />
+            <strong>Current:</strong> {current ?? "-"}
+          </div>
+
+          {/* PSEUDOCODE */}
           <h3 className="font-bold mb-2">Pseudocode</h3>
           <div className="p-3 rounded" style={{ background: "#FEA405" }}>
             {renderCode()}
